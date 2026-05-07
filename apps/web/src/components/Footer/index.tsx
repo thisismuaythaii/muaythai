@@ -1,12 +1,13 @@
 import React from "react";
 import { SITE_CONFIG } from "@repo/utils";
 import { footerLinks, contactInfo, socialIcons } from "./Footer.helpers";
+import { TextScramble } from "@/components/ui/text-scramble";
 
 const Footer = () => {
   return (
     <footer className="relative w-full overflow-hidden bg-primary z-0">
       {/* Front Solid Content Card */}
-      <div className="bg-card shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative z-20 border border-border overflow-hidden">
+      <div className="bg-black relative z-20 border-b border-border overflow-hidden">
         <div className="max-w-7xl mx-auto p-8 md:p-14">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
             {/* Brand section */}
@@ -16,9 +17,13 @@ const Footer = () => {
                   {SITE_CONFIG.brand}
                 </span>
               </div>
-              <p className="text-sm font-body text-muted-foreground leading-relaxed">
+              <TextScramble
+                className="text-sm font-body text-muted-foreground leading-relaxed"
+                duration={2}
+                scrambleClassName="text-primary"
+              >
                 {SITE_CONFIG.taglines.heroDesc}
-              </p>
+              </TextScramble>
             </div>
 
             {/* Footer link sections */}
@@ -34,7 +39,9 @@ const Footer = () => {
                         href={link.href}
                         className="text-muted-foreground hover:text-primary transition-colors duration-300"
                       >
-                        {link.label}
+                        <TextScramble duration={1} speed={0.03} scrambleClassName="text-primary">
+                          {link.label}
+                        </TextScramble>
                       </a>
                       {link.pulse && (
                         <span className="absolute top-0 -right-4 w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -56,10 +63,16 @@ const Footer = () => {
                     {item.icon}
                     {item.href ? (
                       <a href={item.href} className="hover:text-primary transition-colors duration-300">
-                        {item.text}
+                        <TextScramble duration={1} scrambleClassName="text-primary">
+                          {item.text}
+                        </TextScramble>
                       </a>
                     ) : (
-                      <span className="hover:text-primary transition-colors duration-300">{item.text}</span>
+                      <span className="hover:text-primary transition-colors duration-300">
+                        <TextScramble duration={1} scrambleClassName="text-primary">
+                          {item.text}
+                        </TextScramble>
+                      </span>
                     )}
                   </li>
                 ))}
@@ -94,10 +107,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-
     </footer>
   );
 };
 
 export default Footer;
-
