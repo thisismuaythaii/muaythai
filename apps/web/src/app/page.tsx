@@ -5,6 +5,7 @@ import IntroAnimation from "@/components/IntroAnimation";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import DirectoryTiles from "@/components/DirectoryTiles";
+import MapSection from "@/components/MapSection";
 import BurnStrip from "@/components/BurnStrip";
 import Footer from "@/components/Footer";
 
@@ -23,6 +24,7 @@ export default function Home() {
           <Navbar />
           <HeroSection />
           <DirectoryTiles />
+          <MapSection />
           <BurnStrip />
           <Footer />
         </main>
