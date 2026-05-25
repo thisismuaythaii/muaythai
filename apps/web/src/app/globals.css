@@ -210,7 +210,7 @@ div[style*="background-color: white"] {
 .gta-popup-content {
   background: rgba(0, 0, 0, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  width: 400px;
+  width: min(400px, calc(100vw - 40px));
   color: white;
   padding: 0;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
@@ -228,7 +228,7 @@ div[style*="background-color: white"] {
 .gta-popup-image-wrapper {
   position: relative;
   width: 100%;
-  height: 220px;
+  height: 180px;
   overflow: hidden;
 }
 
@@ -246,7 +246,7 @@ div[style*="background-color: white"] {
 }
 
 .gta-popup-info {
-  padding: 12px;
+  padding: 12px 14px;
 }
 
 .gta-popup-header {
@@ -259,8 +259,19 @@ div[style*="background-color: white"] {
   font-family: var(--font-barlow), sans-serif;
   font-weight: 900;
   font-style: italic;
-  font-size: 28px;
+  font-size: clamp(20px, 5vw, 28px);
   text-transform: uppercase;
   color: white;
   letter-spacing: 0.1em;
+}
+
+/* Leaflet popup container must not clip the card on small screens */
+.leaflet-popup {
+  margin-bottom: 20px !important;
+}
+
+@media (max-width: 1023px) {
+  .gta-popup-image-wrapper {
+    height: 140px;
+  }
 }
