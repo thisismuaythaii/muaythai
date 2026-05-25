@@ -58,9 +58,10 @@ function AuthCard() {
         </AnimatePresence>
       </div>
 
-      {/* Card */}
-      <div className="border border-white/[0.12] shadow-2xl p-8 md:p-10"
+      {/* Card — layout prop smoothly animates height on tab switch */}
+      <motion.div layout className="border border-white/[0.12] shadow-2xl p-8 md:p-10"
         style={{ background: "rgba(10,10,10,0.75)", backdropFilter: "blur(24px)" }}
+        transition={{ layout: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
       >
         {/* Tab switcher */}
         <div className="flex border border-white/[0.12] mb-8 relative overflow-hidden">
@@ -85,29 +86,25 @@ function AuthCard() {
           />
         </div>
 
-        {/* Forms — fixed height (sized to signup, the taller form) so card never resizes */}
-        <div className="relative overflow-hidden" style={{ height: 360 }}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={tab}
-              initial={{ opacity: 0, x: tab === "login" ? -16 : 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: tab === "login" ? 16 : -16 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
-              className="absolute inset-0 overflow-y-auto pr-1"
-              style={{ scrollbarWidth: "none" }}
-            >
-              {tab === "login" ? (
-                <LoginForm redirectPath={redirect} />
-              ) : (
-                <SignupForm redirectPath={redirect} />
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        {/* Forms */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={tab}
+            initial={{ opacity: 0, x: tab === "login" ? -16 : 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: tab === "login" ? 16 : -16 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+          >
+            {tab === "login" ? (
+              <LoginForm redirectPath={redirect} />
+            ) : (
+              <SignupForm redirectPath={redirect} />
+            )}
+          </motion.div>
+        </AnimatePresence>
 
-        {/* Google at bottom */}
-        <div className="mt-6 flex flex-col gap-4">
+        {/* Google — below the form */}
+        <div className="flex flex-col gap-4 mt-6">
           <AuthDivider />
           <GoogleAuthButton redirectPath={redirect} />
         </div>
@@ -130,7 +127,7 @@ function AuthCard() {
             </>
           )}
         </p>
-      </div>
+      </motion.div>
 
       {/* Legal */}
       <p className="font-grotesk text-[10px] text-white/30 text-center mt-5 leading-relaxed">

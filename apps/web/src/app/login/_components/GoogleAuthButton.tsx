@@ -49,7 +49,6 @@ export default function GoogleAuthButton({ redirectPath }: GoogleAuthButtonProps
           <GoogleLogin
             onSuccess={handleSuccess}
             onError={() => setError("Google authentication failed")}
-            useOneTap
             theme="filled_black"
             shape="pill"
             size="large"
