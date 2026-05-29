@@ -113,14 +113,14 @@ const Navbar = () => {
               <div className="h-full flex items-center px-10 border-l border-white/[0.1]">
                 {user ? (
                   <div className="flex items-center gap-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
+                    <a href="/profile" className="flex items-center gap-3 group">
+                      <div className="w-7 h-7 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center group-hover:bg-primary/30 group-hover:border-primary/60 transition-colors">
                         <UserIcon size={12} className="text-primary" />
                       </div>
-                      <span className="font-barlow font-bold text-[11px] text-white/50 tracking-[0.15em] uppercase truncate max-w-[100px]">
+                      <span className="font-barlow font-bold text-[11px] text-white/50 tracking-[0.15em] uppercase truncate max-w-[100px] group-hover:text-white/80 transition-colors">
                         {user.full_name?.split(" ")[0] ?? user.email}
                       </span>
-                    </div>
+                    </a>
                     <button onClick={() => logout()} className="text-white/30 hover:text-primary transition-colors hover:scale-110 duration-200">
                       <LogOut size={15} />
                     </button>
@@ -202,9 +202,18 @@ const Navbar = () => {
 
               <div className="pt-12">
                 {user ? (
-                  <button onClick={() => { logout(); setIsOpen(false); }} className="flex items-center gap-3 text-white/40 font-barlow font-bold uppercase tracking-widest">
-                    <LogOut size={20} /> Logout
-                  </button>
+                  <div className="flex flex-col gap-4">
+                    <a
+                      href="/profile"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-3 text-white/60 font-barlow font-bold uppercase tracking-widest hover:text-white transition-colors"
+                    >
+                      <UserIcon size={20} /> My Profile
+                    </a>
+                    <button onClick={() => { logout(); setIsOpen(false); }} className="flex items-center gap-3 text-white/40 font-barlow font-bold uppercase tracking-widest hover:text-primary transition-colors">
+                      <LogOut size={20} /> Logout
+                    </button>
+                  </div>
                 ) : (
                   <div className="flex flex-col gap-3">
                     <a
