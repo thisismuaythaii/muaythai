@@ -24,6 +24,12 @@ class RazorpayService:
         except Exception as e:
             raise exceptions.APIException(f"Razorpay Order Creation Failed: {str(e)}")
 
+    def fetch_order(self, razorpay_order_id):
+        """
+        Fetch an existing Razorpay order (used to reuse orders on retry)
+        """
+        return self.client.order.fetch(razorpay_order_id)
+
     def verify_payment_signature(self, razorpay_order_id, razorpay_payment_id, razorpay_signature):
         """
         Verify the payment signature sent by Razorpay
