@@ -1,37 +1,44 @@
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
-import { 
-  LayoutDashboard, 
-  Users, 
-  Calendar, 
-  MapPin, 
-  Settings, 
-  LogOut, 
+import {
+  LayoutDashboard,
+  Users,
+  Calendar,
+  MapPin,
+  LogOut,
   Trophy,
-  ChevronLeft,
-  ChevronRight,
-  TrendingUp,
+  ClipboardList,
+  Star,
   CreditCard
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { cn } from "@repo/utils";
+import { useAuth } from "@/context/AuthContext";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Analytics", href: "/dashboard" },
   { icon: Users, label: "Students", href: "/dashboard/students" },
+  { icon: ClipboardList, label: "Bookings", href: "/dashboard/orders" },
   { icon: Calendar, label: "Fight Camps", href: "/dashboard/packages" },
   { icon: MapPin, label: "Locations", href: "/dashboard/locations" },
-  { icon: TrendingUp, label: "Performance", href: "/dashboard/performance" },
+  { icon: Star, label: "Reviews", href: "/dashboard/reviews" },
   { icon: CreditCard, label: "Financials", href: "/dashboard/financials" },
 ];
 
 export default function Sidebar() {
   const [isHovered, setIsHovered] = useState(false);
   const pathname = usePathname();
-  
+  const router = useRouter();
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/login");
+  };
+
   const collapsed = !isHovered;
 
   return (
@@ -107,8 +114,8 @@ export default function Sidebar() {
 
       {/* Footer Actions */}
       <div className="px-4 py-6 border-t border-white/5 space-y-2">
-        <Link 
-          href="/login"
+        <button
+          onClick={handleLogout}
           className={cn(
             "w-full flex items-center gap-4 p-3 text-red-400 hover:bg-red-500/10 rounded-xl transition-all"
           )}
@@ -116,7 +123,7 @@ export default function Sidebar() {
           <LogOut className="w-5 h-5 shrink-0 ml-1.5" />
           <AnimatePresence>
             {!collapsed && (
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
@@ -126,7 +133,7 @@ export default function Sidebar() {
               </motion.span>
             )}
           </AnimatePresence>
-        </Link>
+        </button>
       </div>
 
       {/* Decorative Glow */}
