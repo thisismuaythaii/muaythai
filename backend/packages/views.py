@@ -10,11 +10,11 @@ class PackageViewSet(viewsets.ModelViewSet):
     """
     Package View: Browse packages (Public), Manage packages (Admin)
     """
-    queryset = Package.objects.all().order_by('price')
+    queryset = Package.objects.all()
     serializer_class = PackageSerializer
 
     def get_queryset(self):
-        queryset = self.queryset
+        queryset = Package.objects.all().order_by('price', 'id')
         
         # Filter by location ID
         location_id = self.request.query_params.get('location')
@@ -40,9 +40,7 @@ class PackageViewSet(viewsets.ModelViewSet):
         return [IsAdmin()]
 
     def perform_destroy(self, instance):
-        # Soft delete: Deactivate the package
-        instance.is_active = False
-        instance.save()
+        instance.delete()
 
     @action(detail=True, methods=['get'])
     def reviews(self, request, pk=None):
