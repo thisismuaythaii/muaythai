@@ -13,4 +13,17 @@ export const API_ENDPOINTS = {
   },
   LOCATIONS: "/locations",
   PACKAGES: "/packages",
+  ORDERS: "/orders",
+  USERS: "/users",
+  REVIEWS: "/reviews",
+  PAYMENTS: "/payments",
+  // Analytics is mounted at /api/admin/analytics/ (note the /admin/ segment)
+  ANALYTICS: {
+    OVERVIEW: "/admin/analytics/",
+    REVENUE: "/admin/analytics/revenue/",
+    USERS: "/admin/analytics/users/",
+    ORDERS: "/admin/analytics/orders/",
+    LOCATIONS: "/admin/analytics/locations/",
+    VISITORS: "/admin/analytics/visitors/",
+  },
 };
