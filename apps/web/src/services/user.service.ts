@@ -23,7 +23,7 @@ export interface UserOrder {
   id: string;
   package_name: string;
   total_amount: string;
-  status: "PENDING" | "CONFIRMED" | "CANCELLED" | "COMPLETED";
+  status: "PENDING" | "PAID" | "CANCELLED" | "COMPLETED";
   created_at: string;
 }
 
