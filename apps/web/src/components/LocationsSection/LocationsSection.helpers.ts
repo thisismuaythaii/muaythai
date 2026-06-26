@@ -3,44 +3,61 @@ import bangkokImg from "@/assets/bangkok.jpg";
 import chiangmaiImg from "@/assets/chiangmai.jpg";
 import krabiImg from "@/assets/krabi.jpg";
 import kohsamuiImg from "@/assets/kohsamui.jpg";
-import { SITE_CONFIG } from "@repo/utils";
 
-import { Location } from "@/services/location.service";
-
-/** Maps location names to their local image assets */
-export const locationImages = {
-  Phuket: phuketImg,
-  Bangkok: bangkokImg,
-  "Chiang Mai": chiangmaiImg,
-  Krabi: krabiImg,
-  "Koh Samui": kohsamuiImg,
-};
-
-export interface EnrichedLocation extends Location {
-  image: any;
+export interface EnrichedLocation {
+  name: string;
+  city: string;
   vibe: string;
   description: string;
   themeColor: string;
+  image: any;
 }
 
-/** 
- * Enriches API location data with static visual assets and themes
- */
-export function enrichLocations(apiLocations: Location[]): EnrichedLocation[] {
-  if (!Array.isArray(apiLocations)) return [];
-  return apiLocations.map((apiLoc) => {
-    // Attempt to find a match in SITE_CONFIG by name
-    const staticData = SITE_CONFIG.locations.find(
-      (loc) => loc.name.toLowerCase() === apiLoc.name.toLowerCase()
-    );
-
-    // Default values if no match is found (for new cities added via dashboard)
-    return {
-      ...apiLoc,
-      image: locationImages[apiLoc.name as keyof typeof locationImages] || locationImages.Bangkok,
-      vibe: staticData?.vibe || "Fighter Community · Intense Training",
-      description: staticData?.description || "Authentic Muay Thai experience in a locally recognized training hub.",
-      themeColor: staticData?.themeColor || "#f59e0b", // Default orange
-    };
-  });
-}
+/** Hard-coded location data for the Locations section */
+export const LOCATIONS: EnrichedLocation[] = [
+  {
+    name: "Phuket",
+    city: "Phuket",
+    vibe: "Fighter Island · Chill Vibes",
+    description:
+      "The perfect balance of serious training and lifestyle experience. International camps, high-quality gyms, and the beach after every session.",
+    themeColor: "#f59e0b",
+    image: phuketImg,
+  },
+  {
+    name: "Bangkok",
+    city: "Bangkok",
+    vibe: "Hardcore · Old School · Legendary",
+    description:
+      "The heart of professional Muay Thai. Elite fighters, iconic stadiums, and training that pushes you harder than you thought possible.",
+    themeColor: "#ef4444",
+    image: bangkokImg,
+  },
+  {
+    name: "Chiang Mai",
+    city: "Chiang Mai",
+    vibe: "Laid Back · Traditional · Immersive",
+    description:
+      "Traditional and focused training in a quieter setting. Smaller groups, disciplined culture, and full immersion in the art.",
+    themeColor: "#10b981",
+    image: chiangmaiImg,
+  },
+  {
+    name: "Krabi",
+    city: "Krabi",
+    vibe: "Scenic · Raw · Hidden Gem",
+    description:
+      "Limestone cliffs, emerald waters, and a famous gym with outdoor training that feels like another world entirely.",
+    themeColor: "#0ea5e9",
+    image: krabiImg,
+  },
+  {
+    name: "Koh Samui",
+    city: "Koh Samui",
+    vibe: "Exclusive · Premium · Great Fight Scene",
+    description:
+      "Premium camps with strong international community. High-quality facilities, experienced trainers, and a lifestyle-oriented experience.",
+    themeColor: "#a855f7",
+    image: kohsamuiImg,
+  },
+];
