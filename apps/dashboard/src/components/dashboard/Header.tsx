@@ -5,6 +5,7 @@ import { User, Calendar } from "lucide-react";
 import { formatDate } from "@repo/utils";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import MobileNav from "./MobileNav";
 
 export default function Header() {
   const [dateStr, setDateStr] = useState<string>("");
@@ -15,8 +16,11 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="h-20 border-b border-white/5 bg-black/50 backdrop-blur-md sticky top-0 z-40 px-8 flex items-center justify-between">
-      <div className="flex items-center gap-8 flex-1">
+    <header className="h-16 md:h-20 border-b border-white/5 bg-black/50 backdrop-blur-md sticky top-0 z-40 px-4 sm:px-6 md:px-8 flex items-center justify-between">
+      <div className="flex items-center gap-4 md:gap-8 flex-1">
+        {/* Mobile menu trigger */}
+        <MobileNav />
+
         {/* Breadcrumb / Title area */}
         <div className="hidden md:flex flex-col">
             <h2 className="text-white font-bold text-lg tracking-tight">System Overview</h2>
@@ -28,7 +32,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="flex items-center gap-6 pl-8 border-l border-white/5">
+      <div className="flex items-center gap-3 sm:gap-6 md:pl-8 md:border-l border-white/5">
         <div className="hidden lg:flex flex-col items-end mr-4">
             <span className="text-[10px] text-white/40 uppercase tracking-widest font-black flex items-center gap-2">
                 <Calendar className="w-3 h-3 text-primary" />

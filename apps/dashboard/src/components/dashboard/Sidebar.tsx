@@ -52,7 +52,7 @@ export default function Sidebar() {
         duration: 0.3,
         ease: [0.23, 1, 0.32, 1] // Custom ease-out-quart for smooth feel
       }}
-      className="h-screen sticky top-0 bg-black border-r border-white/5 flex flex-col z-50 overflow-hidden group/sidebar will-change-[width]"
+      className="hidden md:flex h-screen sticky top-0 bg-black border-r border-white/5 flex-col z-50 overflow-hidden group/sidebar will-change-[width]"
     >
       {/* Brand Header */}
       <div className="p-6 flex items-center gap-4 border-b border-white/5 h-20 overflow-hidden">
