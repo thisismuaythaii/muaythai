@@ -37,7 +37,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}) {
           });
         }
       } else {
-        // Refresh failed, maybe logout
+        // Refresh rejected by server — session expired, force logout
         localStorage.removeItem('access_token');
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new Event('auth_logout'));
@@ -45,6 +45,11 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}) {
       }
     } catch (error) {
       console.error('Error refreshing token:', error);
+      // Refresh request itself failed — treat session as expired and force logout
+      localStorage.removeItem('access_token');
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('auth_logout'));
+      }
     }
   }
 

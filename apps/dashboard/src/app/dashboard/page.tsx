@@ -18,6 +18,7 @@ import {
 } from "recharts";
 import { useEffect, useState, useCallback } from "react";
 import { analyticsService, AnalyticsBundle } from "@/services/analytics.service";
+import { useAuth } from "@/context/AuthContext";
 
 const STATUS_COLORS: Record<string, string> = {
   PENDING: "hsl(45 100% 50%)",
@@ -35,6 +36,9 @@ const formatShortDate = (iso: string) => {
 };
 
 export default function DashboardHub() {
+  const { user } = useAuth();
+  const adminName =
+    user?.full_name?.split(" ")[0] || user?.email?.split("@")[0] || "Admin";
   const [data, setData] = useState<AnalyticsBundle | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -117,7 +121,10 @@ export default function DashboardHub() {
       {/* Page Header */}
       <div className="flex items-end justify-between border-b border-white/5 pb-8">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-white tracking-tighter">ANALYTICS HUB</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tighter">
+            <span className="text-white/40">Hi, </span>
+            <span className="text-white">{adminName}</span>
+          </h1>
           <p className="text-white/40 font-semibold text-xs tracking-[0.2em] uppercase">
             Intelligence & Operational Metrics
           </p>
